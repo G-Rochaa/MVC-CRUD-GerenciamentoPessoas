@@ -1,4 +1,6 @@
 using GerenciamentoDePessoas.Data;
+using GerenciamentoDePessoas.Repository;
+using GerenciamentoDePessoas.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace GerenciamentoDePessoas
@@ -14,6 +16,9 @@ namespace GerenciamentoDePessoas
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IPessoaService, PessoaService>();
+            builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 
             var app = builder.Build();
 

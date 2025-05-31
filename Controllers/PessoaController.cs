@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GerenciamentoDePessoas.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciamentoDePessoas.Controllers
 {
     public class PessoaController : Controller
     {
-        public IActionResult Index()
+        private readonly IPessoaService _pessoasService;
+
+        public PessoaController(IPessoaService pessoasService)
         {
-            return View();
+            _pessoasService = pessoasService;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            var todosUsuarios = await _pessoasService.BuscarTodos();
+            return View(todosUsuarios);
         }
     }
 }
