@@ -1,0 +1,30 @@
+﻿@model List<Pessoa>
+
+<h1>Listagem de Usuários</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Sobrenome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Tipo Sanguineo</th>
+            <th scope="col">Data de Nascimento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <th scope="row">@item.Id</th>
+                <td>@item.Nome</td>
+                <td>@item.Sobrenome</td>
+                <td>@item.CPF</td>
+                <td>@item.TipoSanguineo</td>
+                <td>@item.DataNascimento.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
