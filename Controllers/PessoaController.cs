@@ -12,10 +12,17 @@ namespace GerenciamentoDePessoas.Controllers
             _pessoasService = pessoasService;
         }
 
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var todosUsuarios = await _pessoasService.BuscarTodos();
             return View(todosUsuarios);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Criar()
+        {
+            return View();
         }
     }
 }
