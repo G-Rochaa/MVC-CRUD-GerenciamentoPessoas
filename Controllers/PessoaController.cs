@@ -1,4 +1,5 @@
-﻿using GerenciamentoDePessoas.Services;
+﻿using GerenciamentoDePessoas.Models;
+using GerenciamentoDePessoas.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciamentoDePessoas.Controllers
@@ -15,7 +16,7 @@ namespace GerenciamentoDePessoas.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var todosUsuarios = await _pessoasService.BuscarTodos();
+            var todosUsuarios = await _pessoasService.BuscarTodosAsync();
             return View(todosUsuarios);
         }
 
@@ -23,6 +24,30 @@ namespace GerenciamentoDePessoas.Controllers
         public async Task<ActionResult> Criar()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Criar(Pessoa pessoa)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var usuario = await _pessoasService.CriarPessoaAsync(pessoa);
+                    if (usuario != null)
+                    {
+                        TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
+                        return RedirectToAction("Index", "Pessoa");
+                    }
+                }
+                return View(pessoa);
+            }
+            catch (Exception ex)
+            {
+                TempData["MensagemErro"] = ex.Message;
+                return View(pessoa);
+            }
+
         }
     }
 }

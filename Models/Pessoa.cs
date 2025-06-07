@@ -25,10 +25,11 @@ namespace GerenciamentoDePessoas.Models
         #region Properties
 
         public int Id { get; set; }
+
         [Required(ErrorMessage ="O nome é obrigatório")]
         [StringLength(10,MinimumLength =2 ,ErrorMessage = "O nome deve ter mais de 2 caractares e menos que 10 caracteres")]
-
         public string Nome { get; set; }
+
         [Required(ErrorMessage = "O sobrenome é obrigatório")]
         [StringLength(10, MinimumLength = 2, ErrorMessage = "O sobrenome deve ter mais de 2 caractares e menos que 10 caracteres")]
         public string Sobrenome { get; set; }
