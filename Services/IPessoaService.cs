@@ -4,7 +4,8 @@ namespace GerenciamentoDePessoas.Services
 {
     public interface IPessoaService
     {
-        Task<List<Pessoa>> BuscarTodos();
+        Task<List<Pessoa>> BuscarTodosAsync();
+        Task<Pessoa> CriarPessoaAsync(Pessoa pessoa);
 
     }
 }

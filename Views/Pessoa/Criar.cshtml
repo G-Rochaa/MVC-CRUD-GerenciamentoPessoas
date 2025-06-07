@@ -1,0 +1,49 @@
+﻿@using GerenciamentoDePessoas.Models.Enum
+@model Pessoa
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+<form asp-action="Criar" method="post">
+    <div class="form-group">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" asp-for="Nome" placeholder="Digite o nome">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Sobrenome</label>
+        <input type="text" class="form-control" asp-for="Sobrenome" placeholder="Digite o Sobrenome">
+        <span asp-validation-for="Sobrenome" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Data de Nascimento</label>
+        <input type="date" class="form-control" asp-for="DataNascimento">
+        <span asp-validation-for="DataNascimento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">CPF</label>
+        <input type="number" class="form-control" asp-for="CPF" placeholder="Digite o CPF">
+        <span asp-validation-for="CPF" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Tipo Sanguíneo</label>
+        <select class="form-select" asp-for="TipoSanguineo">
+            @foreach (var tipo in Enum.GetValues(typeof(ETipoSanguineo)))
+            {
+                if (Model?.TipoSanguineo == (ETipoSanguineo)tipo)
+                {
+                    <option selected value="@tipo">@tipo</option>
+                }
+                else
+                {
+                    <option value="@tipo">@tipo</option>
+                }
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+</form>
