@@ -2,7 +2,7 @@
 @model Pessoa
 
 @{
-    ViewData["Title"] = "Criar";
+    ViewData["Title"] = "Editar";
 }
 
 @if (TempData["MensagemErro"] != null)
@@ -12,7 +12,8 @@
     </div>
 }
 
-<form asp-action="Criar" method="post">
+<form asp-action="Editar" asp-controller="Pessoa" method="post">
+    <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label class="form-label">Nome</label>
         <input type="text" class="form-control" asp-for="Nome" placeholder="Digite o nome">

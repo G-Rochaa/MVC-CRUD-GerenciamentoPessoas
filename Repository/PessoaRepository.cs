@@ -15,17 +15,38 @@ namespace GerenciamentoDePessoas.Repository
 
         public async Task<List<Pessoa>> BuscarTodosAsync()
         {
-            var usuariosBanco = await _context.Pessoas.ToListAsync();
+            var pessoasBanco = await _context.Pessoas.ToListAsync();
 
-            return usuariosBanco;
+            return pessoasBanco;
         }
 
-        public async Task<bool> VerificarSeUsuarioExisteAsync(string cpf)
+        public async Task<Pessoa> BuscarPessoaPorIdAsync(int id)
         {
-            var usuarioExiste = await _context.Pessoas
+            try
+            {
+                var pessoa = await _context.Pessoas.AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (pessoa == null)
+                {
+                    throw new Exception("Usuário não encontrado.");
+                }
+
+                return pessoa;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<bool> VerificarSePessoaExisteAsync(string cpf)
+        {
+            var pessoaExiste = await _context.Pessoas
                 .AnyAsync(p => p.CPF == cpf);
 
-            return usuarioExiste;
+            return pessoaExiste;
         }
 
         public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
@@ -41,7 +62,21 @@ namespace GerenciamentoDePessoas.Repository
             {
                 throw new Exception("Erro ao criar a pessoa no banco de dados. Verifique os dados informados e tente novamente.");
             }
-       
+
+        }
+
+        public async Task<Pessoa> EditarPessoaAsync(Pessoa pessoa)
+        {
+            _context.Pessoas.Update(pessoa);
+            await _context.SaveChangesAsync();
+
+            return pessoa;
+        }
+
+        public async Task DeletarPessoaAsync(Pessoa pessoa)
+        {
+            _context.Pessoas.Remove(pessoa);
+            await _context.SaveChangesAsync();
         }
     }
 }
