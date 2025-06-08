@@ -15,6 +15,5 @@ namespace GerenciamentoDePessoas.Repository
         Task<Pessoa> EditarPessoaAsync(Pessoa pessoa);
 
         Task DeletarPessoaAsync(Pessoa pessoa);
-
     }
 }

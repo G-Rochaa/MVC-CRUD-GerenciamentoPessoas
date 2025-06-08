@@ -13,7 +13,5 @@ namespace GerenciamentoDePessoas.Services
         Task<Pessoa> EditarPessoaAsync(Pessoa pessoa);
 
         Task DeletarPessoaAsync(int id);
-
-
     }
 }

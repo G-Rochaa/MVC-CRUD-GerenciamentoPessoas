@@ -52,5 +52,19 @@ namespace GerenciamentoDePessoas.Services
 
             await _pessoasRepository.DeletarPessoaAsync(pessoa);
         }
+
+        public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
+        {
+            var usuarioExiste = await _pessoasRepository.VerificarSeUsuarioExisteAsync(pessoa.CPF);
+
+            if (usuarioExiste)
+            {
+                throw new Exception("Usuário já está cadastrado no sistema");
+            }
+
+            var usuarioCriado = await _pessoasRepository.CriarPessoaAsync(pessoa);
+
+            return usuarioCriado;
+        }
     }
 }
