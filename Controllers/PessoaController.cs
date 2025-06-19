@@ -117,35 +117,5 @@ namespace GerenciamentoDePessoas.Controllers
                 return View();
             }
         }
-
-        [HttpGet]
-        public async Task<ActionResult> Criar()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Criar(Pessoa pessoa)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var usuario = await _pessoasService.CriarPessoaAsync(pessoa);
-                    if (usuario != null)
-                    {
-                        TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
-                        return RedirectToAction("Index", "Pessoa");
-                    }
-                }
-                return View(pessoa);
-            }
-            catch (Exception ex)
-            {
-                TempData["MensagemErro"] = ex.Message;
-                return View(pessoa);
-            }
-
-        }
     }
 }

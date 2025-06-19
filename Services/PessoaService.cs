@@ -1,6 +1,5 @@
 ﻿using GerenciamentoDePessoas.Models;
 using GerenciamentoDePessoas.Repository;
-using System.Threading.Tasks;
 
 namespace GerenciamentoDePessoas.Services
 {
@@ -15,14 +14,14 @@ namespace GerenciamentoDePessoas.Services
 
         public async Task<List<Pessoa>> BuscarTodosAsync()
         {
-           var pessoasBanco = await _pessoasRepository.BuscarTodosAsync();
+            var pessoasBanco = await _pessoasRepository.BuscarTodosAsync();
 
             return pessoasBanco;
         }
 
         public async Task<Pessoa> BuscarPessoaPorIdAsync(int id)
         {
-           return await _pessoasRepository.BuscarPessoaPorIdAsync(id);
+            return await _pessoasRepository.BuscarPessoaPorIdAsync(id);
         }
 
         public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
@@ -53,18 +52,5 @@ namespace GerenciamentoDePessoas.Services
             await _pessoasRepository.DeletarPessoaAsync(pessoa);
         }
 
-        public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
-        {
-            var usuarioExiste = await _pessoasRepository.VerificarSeUsuarioExisteAsync(pessoa.CPF);
-
-            if (usuarioExiste)
-            {
-                throw new Exception("Usuário já está cadastrado no sistema");
-            }
-
-            var usuarioCriado = await _pessoasRepository.CriarPessoaAsync(pessoa);
-
-            return usuarioCriado;
-        }
     }
 }
