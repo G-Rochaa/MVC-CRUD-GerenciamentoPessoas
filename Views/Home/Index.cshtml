@@ -1,17 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Bem-vindo ao Gerenciador de Pessoas";
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "Início";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-            <h1 class="display-4 mb-4">Gerenciador de Pessoas</h1>
-            <p class="lead mb-4">
-                Bem-vindo ao sistema de gerenciamento de pessoas!<br/>
-                Aqui você pode cadastrar, editar, visualizar e remover pessoas de forma simples e eficiente.
-            </p>
-            <a href="/Pessoa" class="btn btn-primary btn-lg">Acessar Lista de Pessoas</a>
-        </div>
-    </div>
-</div>
-   
+<partial name="Partial/_BoasVindas"></partial>
+<partial name="Partial/_Carrosel" model="Model"></partial>
+
