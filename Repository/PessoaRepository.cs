@@ -86,5 +86,21 @@ namespace GerenciamentoDePessoas.Repository
 
             return usuarioExiste;
         }
+
+        public async Task<int> BuscarTotalAsync()
+        {
+            return await _context.Pessoas.CountAsync();
+        }
+
+        public async Task<List<Pessoa>> BuscarPessoaNomeAsync(string termo)
+        {
+            var pessoasDb = await _context.Pessoas
+            .Where(p => EF.Functions.Like(p.Nome, $"%{termo}%") ||
+                        EF.Functions.Like(p.Sobrenome, $"%{termo}%") ||
+                        EF.Functions.Like(p.CPF, $"%{termo}%"))
+            .ToListAsync();
+
+            return pessoasDb;
+        }
     }
 }

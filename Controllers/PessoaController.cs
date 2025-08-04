@@ -1,9 +1,11 @@
 ﻿using GerenciamentoDePessoas.Models;
 using GerenciamentoDePessoas.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciamentoDePessoas.Controllers
 {
+    [Authorize]
     public class PessoaController : Controller
     {
         private readonly IPessoaService _pessoasService;
@@ -18,6 +20,21 @@ namespace GerenciamentoDePessoas.Controllers
         {
             var todasPessoas = await _pessoasService.BuscarTodosAsync();
             return View(todasPessoas);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Total()
+        {
+            var totalPessoas = await _pessoasService.BuscarTotalAsync();
+            return Ok(totalPessoas);
+        }
+        
+        [HttpGet]
+        public async Task<JsonResult> BuscarPessoasNome(string termo)
+        {
+            var resultadoBusca = await _pessoasService.BuscarPessoaNomeAsync(termo);
+
+            return Json(resultadoBusca);
         }
 
         [HttpGet]

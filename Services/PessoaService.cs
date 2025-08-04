@@ -52,5 +52,22 @@ namespace GerenciamentoDePessoas.Services
             await _pessoasRepository.DeletarPessoaAsync(pessoa);
         }
 
+        public async Task<int> BuscarTotalAsync()
+        {
+           return await _pessoasRepository.BuscarTotalAsync();
+        }
+
+        public async Task<List<string>> BuscarPessoaNomeAsync(string termo)
+        {
+            var resultadoBusca = await _pessoasRepository.BuscarPessoaNomeAsync(termo);
+
+            var nomesCompletos = new List<string>();
+
+            foreach (var item in resultadoBusca)
+            {
+                nomesCompletos.Add($"{item.Nome} {item.Sobrenome}");
+            }
+            return nomesCompletos;
+        }
     }
 }
