@@ -4,6 +4,7 @@ using GerenciamentoDePessoas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciamentoDePessoas.Migrations
 {
     [DbContext(typeof(GerenciamentoPessoasContext))]
-    partial class GerenciamentoPessoasContextModelSnapshot : ModelSnapshot
+    [Migration("20250726234310_Implementando_Identity")]
+    partial class Implementando_Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,20 +153,6 @@ namespace GerenciamentoDePessoas.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b36df00d-c9dd-4e00-be31-8bf524df992b",
-                            Name = "administrador",
-                            NormalizedName = "ADMINISTRADOR"
-                        },
-                        new
-                        {
-                            Id = "ab6dc1dd-2608-4768-b924-8978ad63a39c",
-                            Name = "operador",
-                            NormalizedName = "OPERADOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

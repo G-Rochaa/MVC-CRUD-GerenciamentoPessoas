@@ -1,6 +1,5 @@
 ﻿using GerenciamentoDePessoas.Models;
 using GerenciamentoDePessoas.Repository;
-using System.Threading.Tasks;
 
 namespace GerenciamentoDePessoas.Services
 {
@@ -15,14 +14,14 @@ namespace GerenciamentoDePessoas.Services
 
         public async Task<List<Pessoa>> BuscarTodosAsync()
         {
-           var pessoasBanco = await _pessoasRepository.BuscarTodosAsync();
+            var pessoasBanco = await _pessoasRepository.BuscarTodosAsync();
 
             return pessoasBanco;
         }
 
         public async Task<Pessoa> BuscarPessoaPorIdAsync(int id)
         {
-           return await _pessoasRepository.BuscarPessoaPorIdAsync(id);
+            return await _pessoasRepository.BuscarPessoaPorIdAsync(id);
         }
 
         public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
@@ -53,18 +52,22 @@ namespace GerenciamentoDePessoas.Services
             await _pessoasRepository.DeletarPessoaAsync(pessoa);
         }
 
-        public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
+        public async Task<int> BuscarTotalAsync()
         {
-            var usuarioExiste = await _pessoasRepository.VerificarSeUsuarioExisteAsync(pessoa.CPF);
+           return await _pessoasRepository.BuscarTotalAsync();
+        }
 
-            if (usuarioExiste)
+        public async Task<List<string>> BuscarPessoaNomeAsync(string termo)
+        {
+            var resultadoBusca = await _pessoasRepository.BuscarPessoaNomeAsync(termo);
+
+            var nomesCompletos = new List<string>();
+
+            foreach (var item in resultadoBusca)
             {
-                throw new Exception("Usuário já está cadastrado no sistema");
+                nomesCompletos.Add($"{item.Nome} {item.Sobrenome}");
             }
-
-            var usuarioCriado = await _pessoasRepository.CriarPessoaAsync(pessoa);
-
-            return usuarioCriado;
+            return nomesCompletos;
         }
     }
 }

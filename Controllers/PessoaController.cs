@@ -1,9 +1,11 @@
 ﻿using GerenciamentoDePessoas.Models;
 using GerenciamentoDePessoas.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciamentoDePessoas.Controllers
 {
+    [Authorize]
     public class PessoaController : Controller
     {
         private readonly IPessoaService _pessoasService;
@@ -18,6 +20,21 @@ namespace GerenciamentoDePessoas.Controllers
         {
             var todasPessoas = await _pessoasService.BuscarTodosAsync();
             return View(todasPessoas);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Total()
+        {
+            var totalPessoas = await _pessoasService.BuscarTotalAsync();
+            return Ok(totalPessoas);
+        }
+        
+        [HttpGet]
+        public async Task<JsonResult> BuscarPessoasNome(string termo)
+        {
+            var resultadoBusca = await _pessoasService.BuscarPessoaNomeAsync(termo);
+
+            return Json(resultadoBusca);
         }
 
         [HttpGet]
@@ -116,36 +133,6 @@ namespace GerenciamentoDePessoas.Controllers
                 TempData["MensagemErro"] = ex.Message;
                 return View();
             }
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> Criar()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Criar(Pessoa pessoa)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var usuario = await _pessoasService.CriarPessoaAsync(pessoa);
-                    if (usuario != null)
-                    {
-                        TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
-                        return RedirectToAction("Index", "Pessoa");
-                    }
-                }
-                return View(pessoa);
-            }
-            catch (Exception ex)
-            {
-                TempData["MensagemErro"] = ex.Message;
-                return View(pessoa);
-            }
-
         }
     }
 }

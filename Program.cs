@@ -2,6 +2,8 @@ using GerenciamentoDePessoas.Data;
 using GerenciamentoDePessoas.Repository;
 using GerenciamentoDePessoas.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using GerenciamentoDePessoas.Models;
 
 namespace GerenciamentoDePessoas
 {
@@ -13,6 +15,11 @@ namespace GerenciamentoDePessoas
 
             builder.Services.AddDbContext<GerenciamentoPessoasContext>(options => 
             options.UseSqlServer(builder.Configuration.GetConnectionString("GerenciamentoPessoasContext")));
+
+            builder.Services
+                .AddDefaultIdentity<Usuario>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<GerenciamentoPessoasContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -40,6 +47,11 @@ namespace GerenciamentoDePessoas
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
 
             app.Run();
         }

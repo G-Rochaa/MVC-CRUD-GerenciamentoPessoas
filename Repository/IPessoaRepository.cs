@@ -6,6 +6,8 @@ namespace GerenciamentoDePessoas.Repository
     {
         Task<List<Pessoa>> BuscarTodosAsync();
 
+        Task<int> BuscarTotalAsync();
+
         Task<Pessoa> BuscarPessoaPorIdAsync(int id);
 
         Task<bool> VerificarSePessoaExisteAsync(string cpf);
@@ -15,5 +17,7 @@ namespace GerenciamentoDePessoas.Repository
         Task<Pessoa> EditarPessoaAsync(Pessoa pessoa);
 
         Task DeletarPessoaAsync(Pessoa pessoa);
+
+        Task<List<Pessoa>> BuscarPessoaNomeAsync(string termo);
     }
 }
